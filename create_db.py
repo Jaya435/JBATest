@@ -15,7 +15,7 @@ class Input:
         Creates a table in the database called PRECIPITATION and drops one if it already exists
         :return:
         """
-        conn = sqlite3.connect('/db/' + self.filename)
+        conn = sqlite3.connect(self.filename)
         logging.info("Opened database successfully")
         try:
             conn.execute('''DROP TABLE IF EXISTS PRECIPITATION;''')

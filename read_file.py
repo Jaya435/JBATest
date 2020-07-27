@@ -1,5 +1,4 @@
 import re
-import datetime
 
 class ReadTextfile():
     """
@@ -13,8 +12,8 @@ class ReadTextfile():
         self.nChars = len(content)
         self.nLines = content.count('\n')
         self.nWords = len(content.split())
-        self.data_frame = self.extract_data_frame()
         self.headers = self.extract_header()
+        self.data_frame = self.save_to_array()
 
     def extract_all_data(self):
         """
@@ -30,14 +29,22 @@ class ReadTextfile():
         headers = {}
         string = re.findall(r"\[.*?]", self.content)
         pat = re.compile(r'\d{2,4}-\d{2,4}')
+        pat2 = re.compile(r'\d+\.\d{1,2}')
         for s in string:
             s_remove_brackets = s[1:-1]
             s_split = s_remove_brackets.split('=')
-            m = re.findall(pat, s_split[1])
-            if len(m) > 0:
+            hyphens = re.findall(pat, s_split[1])
+            decimals = re.findall(pat2, s_split[1])
+            if len(hyphens) > 0 and len(decimals) > 0:
                 headers[s_split[0]] = list(map(float, s_split[1].split('-')))
-            else:
+            elif len(hyphens) > 0 and len(decimals) == 0:
+                headers[s_split[0]] = list(map(int, s_split[1].split('-')))
+            elif len(hyphens) == 0 and len(decimals) > 0:
                 headers[s_split[0]] = list(map(float, s_split[1].split(',')))
+            else:
+                headers[s_split[0]] = list(map(int, s_split[1].split(',')))
+            if len(headers[s_split[0]]) == 1:
+                headers[s_split[0]] = headers[s_split[0]][0]
         return headers
 
     def extract_data_block(self):
@@ -66,8 +73,8 @@ class ReadTextfile():
         n = 0
         for block in data_block:
             int_block = []
-            # create a json with Xref: , Yref: Date:, Value:
-            int_block.append(block[0].split(','))
+            grid_refs = list(map(int, block[0].split(',')))
+            int_block.append(grid_refs)
             for i in range(0, len(block[1:])):
                 try:
                     block_split = [int(x) for x in block[1:][i].split()]
@@ -83,7 +90,7 @@ class ReadTextfile():
         :return:An array of all the data in the text file, each item contains the "Grid-ref", date and value
         """
         db_array = []
-        for block in self.data_frame:
+        for block in self.extract_data_frame():
             year = int(self.headers['Years'][0])
             for i in range(1, len(block[1]) - 1):
                 for month in range(0, len(block[1])):
