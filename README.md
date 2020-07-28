@@ -56,23 +56,7 @@ This prints out the first 3 years of precipitation data from the first datablock
 
 The automated tests can be run using the below command:
 ```
-
-```
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+python3 -m unittest discover
 ```
 
 ## Authors
