@@ -1,10 +1,16 @@
 import re
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+
 
 class ReadTextfile():
     """
     Reads in a TextFile, and extracts the headers and saves the main data block
     to an array and the headers to a dictionary
     """
+
     def __init__(self, filename):
         with open(filename, 'r') as inputfile:
             content = inputfile.read()
@@ -54,7 +60,8 @@ class ReadTextfile():
         """
         data_block = []
         data = self.extract_all_data()
-        data_blocks = re.split(r"Grid-ref=  ", data)
+        data_no_whitespace = data.replace(" ", "")
+        data_blocks = data_no_whitespace.split("Grid-ref=")
         for block in data_blocks:
             block.strip().rstrip()
             if len(block) > 0:
@@ -80,6 +87,7 @@ class ReadTextfile():
                     block_split = [int(x) for x in block[1:][i].split()]
                     int_block.append(block_split)
                 except:
+                    logging.info("Unable to handle data block {}".format(block))
                     break
             data_frame.append(int_block)
             n += 1
@@ -95,7 +103,7 @@ class ReadTextfile():
             for i in range(1, len(block[1]) - 1):
                 for month in range(0, len(block[1])):
                     db_row = []
-                    date = str(month+1)+'/'+'1'+'/'+str(year)
+                    date = str(month + 1) + '/' + '1' + '/' + str(year)
                     db_row.append(block[0][0])
                     db_row.append(block[0][1])
                     db_row.append(date)
