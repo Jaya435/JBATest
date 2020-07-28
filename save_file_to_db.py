@@ -19,7 +19,6 @@ class SaveTextFiletoDB():
         self.file = read_file.ReadTextfile(file)
         self.input = Input(filename)
         self.header = self.file.headers
-        self.data_frame = self.file.save_to_array()
 
     def save_to_db(self):
         '''
@@ -27,7 +26,7 @@ class SaveTextFiletoDB():
         '''
         self.input.setting()
         start_time = datetime.datetime.now()
-        self.input.submit(self.data_frame)
+        self.input.submit(self.file.data_frame)
         logging.info("Data uploaded in {} seconds".format(datetime.datetime.now() - start_time))
 
 
