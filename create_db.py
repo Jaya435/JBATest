@@ -31,7 +31,7 @@ class Input:
             pass
         conn.close()
 
-    def submit(self,db_array):
+    def submit(self, db_array):
         '''
         :param db_array: An array of data to be inserted
         :return: Insert values into precipiation table
@@ -72,3 +72,4 @@ class Input:
         cursor.execute('SELECT max(rowid) from PRECIPITATION')
         n = cursor.fetchone()[0]
         logging.info("Database rows {} upload: {}".format(time, n))
+        return n

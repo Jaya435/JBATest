@@ -9,3 +9,4 @@
 /.idea/.gitignore
 /test1.db
 /.idea/vcs.xml
+/tests/temp.db
