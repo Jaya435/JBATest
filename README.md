@@ -1,6 +1,6 @@
 # JBA Code Challenge
 
-Repository contains python project that can read in a text file then extract the headers and main body of data. The header is transformed into a dictionary and the main data body is transformed into an array to be inserted into an sqlite3 database.
+Repository contains a python project that can read in a text file then extract the headers and main body of data. The header is transformed into a dictionary and the main data body is transformed into an array to be inserted into an sqlite3 database.
 
 ## Getting Started
 
