@@ -13,6 +13,10 @@ You will need to run this programme using Python3. You can follow a guide here t
 ```
 python3 -m venv /path/to/new/virtual/environment
 ```
+to activate the venv use:
+```
+source /path/to/new/virtual/environment/bin/activate
+```
 
 ### Installing
 
