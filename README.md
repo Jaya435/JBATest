@@ -13,6 +13,10 @@ You will need to run this programme using Python3. You can follow a guide here t
 ```
 python3 -m venv /path/to/new/virtual/environment
 ```
+to activate the venv use:
+```
+source /path/to/new/virtual/environment/bin/activate
+```
 
 ### Installing
 
@@ -24,7 +28,7 @@ https://github.com/Jaya435/JBATest.git
 ```
 Then run
 ```
-python save_file_to_db.py --input cru-ts-2-10.1991-2000-cutdown.pre --output test.db
+python save_file/save_file_to_db.py --input cru-ts-2-10.1991-2000-cutdown.pre --output db/test.db
 ```
 The --output flag is optional and defines the name of the database that will be created when the programme is run.\
 
@@ -46,7 +50,7 @@ optional arguments:
 Once the programme is run, you can view the data stored in the system either by using an sqlite3 application, or by opening a python interpreter and running:
 ```
 import sqlite3
-conn = sqlite3.connect("test.db")
+conn = sqlite3.connect("db/test.db")
 cursor = conn.cursor()
 for row in cursor.execute('SELECT * from PRECIPITATION LIMIT 36'): print(row)
 ```
