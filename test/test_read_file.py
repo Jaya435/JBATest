@@ -1,6 +1,6 @@
 import unittest
-from read_file import ReadTextfile
-import create_db
+from save_file.read_file import ReadTextfile
+from save_file import create_db
 import sqlite3
 
 class TestReadFileSuccess(unittest.TestCase):
