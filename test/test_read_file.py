@@ -1,12 +1,12 @@
 import unittest
 from save_file.read_file import ReadTextfile
-from save_file import create_db
 import sqlite3
+from save_file.create_db import Input
 
 class TestReadFileSuccess(unittest.TestCase):
 
     def setUp(self):
-        self.test_data = 'test_data.pre'
+        self.test_data = 'test/test_data.pre'
         self.file = ReadTextfile(self.test_data)
 
     def testReadHeaderSuccessfully(self):
@@ -28,9 +28,9 @@ class TestReadFileSuccess(unittest.TestCase):
 
 class TestSaveTestFiletoDB(unittest.TestCase):
     def setUp(self):
-        self.test_data = 'test_data.pre'
+        self.test_data = 'test/test_data.pre'
         self.file = ReadTextfile(self.test_data)
-        self.input = create_db.Input('temp.db')
+        self.input = Input('temp.db')
         self.input.setting()
 
     def test_sqlite3_create_table_success(self):

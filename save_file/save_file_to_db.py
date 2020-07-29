@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 import argparse
-from save_file.create_db import Input
-from save_file import read_file
+from create_db import Input
+import read_file
 import datetime
 import logging
 import sys
